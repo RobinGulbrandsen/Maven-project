@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Search for JEE6</title>
+	<link rel="stylesheet" type="text/css"
+		href="${facesContext.externalContext.requestContextPath}/stylesheet/main.css" />
+</h:head>
+<h:body>
+	<div id="wrapper">
+		<div id="header">
+			<h1>Search for JEE6</h1>
+		</div>
+		<div id="sWrapper">
+			<div id="searchWrapper">
+				<div id="search">
+					<h:form>
+			            <h:panelGrid columns="2">
+			                <h:inputText id="txtInput" value="#{technologyBean.technology}"/>
+			                <h:commandButton value="Search" action="#{searchController.searchResults}"/>
+			            </h:panelGrid>
+			        </h:form>
+				</div>
+			</div>
+		</div>
+		
+		<div id="content">
+			<div id="resultMenu">
+			<div id="resultAcronymMenu">
+				<h3>Acronym</h3>
+			</div>
+			<div id="resultVersionMenu">
+				<h3>Version</h3>
+			</div>
+			<div id="resultTitleMenu">
+				<h3>Technology</h3>
+			</div>
+			<div id="resultJsrMenu">
+				<h3>JSR</h3>
+			</div>
+		</div>
+		
+		<c:forEach var="item" items="#{searchBackingBean.currentSearchResults}">
+			<div id="result">
+				<div id="resultAcronym">
+					<h3><h:outputText for="acrynom" value="#{item.acrynom}"/></h3>
+				</div>
+				<div id="resultVersion">
+					<h3><h:outputText for="version" value="#{item.version}"/></h3>
+				</div>
+				<a id="resultTitle" href="#{item.url}">
+					<h3><h:outputText for="technology" value="#{item.technology}"/></h3>
+				</a>
+				<div id="resultJsr">
+					<h3><h:outputText for="jsr" value="#{item.jsr}"/></h3>
+				</div>
+			</div>
+			<div id="resultDescription">
+				<p><h:outputText for="description" value="#{item.description}"/></p>
+			</div>
+		
+		</c:forEach>
+		</div>
+		<div id="navigation">
+			<h:form>
+	            <h:commandLink action="#{searchController.previousResults}" style="font-size: 20px;">Previous</h:commandLink>
+	            <h:commandLink action="#{searchController.exportResults}" style="font-size: 20px;">Export</h:commandLink>
+	            <h:commandLink action="#{searchController.nextResults}" style="font-size: 20px;">Next</h:commandLink>
+	        </h:form>
+		</div>
+	</div>
+	
+</h:body>
+</html>
+
